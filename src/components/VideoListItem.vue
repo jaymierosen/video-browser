@@ -1,10 +1,11 @@
 <template>
-  <li>VideoListItem</li>
+  <li>{{ videos.activity }}</li>
 </template>
 
 <script>
 export default {
   name: 'VideoListItem',
+  props: ['videos'],
   // use these functions to change data
   methods: {
     

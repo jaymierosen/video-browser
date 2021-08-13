@@ -1,44 +1,44 @@
 <template>
-  <SearchBar v-on:termChange="onTermChange"></SearchBar>
-  <VideoList>
-  </VideoList>
-  {{ videos.length }}
+  <div class="container">
+    <h1>Type in a search type from the following list</h1>
+    <h2>["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]</h2>
+    <SearchBar @termChange="onTermChange"></SearchBar>
+    <div class="row">
+      <VideoDetail />
+      <VideoList :videos="videos"></VideoList>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
-import SearchBar from './components/SearchBar.vue'
-import VideoList from './components/VideoList.vue'
-
+import SearchBar from './components/SearchBar';
+import VideoList from './components/VideoList';
+import VideoDetail from './components/VideoDetail';
 export default {
   name: 'App',
   components: {
     SearchBar,
     VideoList,
+    VideoDetail
   },
-  data: function () {
-    return {
-      videos: []
-    }
+  data() {
+    return { videos: [] };
   },
   methods: {
-    onTermChange: (searchTerm) => {
-      axios.get('https://www.googleapis.com/youtube/v3/search', {
+    onTermChange(type) {
+      axios.get('https://www.boredapi.com/api/activity?type', {
         params: {
-          key:'AIzaSyBY2owLBQn7ThEYeehzc7cK775AzfUavpM',
-          type: 'video',
-          part: 'snippet',
-          q: searchTerm
+          type: type
         }
       })
-      .then(res => console.log(res))
-      // .then(res => {
-      //   this.data.videos = res.data.items
-      //   console.log(this.data.videos)
-      // })
+        .then(res => {
+          this.videos = res.data;
+          console.log('this.videos', this.videos)
+        });
     }
   }
-}
+};
 </script>
 
 <style>

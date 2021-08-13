@@ -1,22 +1,23 @@
 <template>
   <section>
       <ul>
-					<VideoDetail></VideoDetail>
-         <VideoListItem></VideoListItem>
+        <VideoListItem :videos="videos"></VideoListItem>
       </ul>
   </section>
 </template>
 
 <script>
 import VideoListItem from '../components/VideoListItem.vue'
-import VideoDetail from '../components/VideoDetail.vue'
 
 export default {
   components: {
-      VideoListItem,
-			VideoDetail
+      VideoListItem
   },
   name: 'VideoList',
+	props: ['videos'],
+	// props: {
+	// 	videos: Array
+	// },
   // use these functions to change data
   methods: {
     
